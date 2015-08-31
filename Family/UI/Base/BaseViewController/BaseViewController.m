@@ -88,6 +88,7 @@
     [super viewDidDisappear:animated];
     
     self.currentViewActived = NO;
+    self.firstTimeAppear = NO;
 }
 
 #pragma mark - Inner Methods
