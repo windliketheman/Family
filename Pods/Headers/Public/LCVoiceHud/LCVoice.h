@@ -1,0 +1,1 @@
+../../../LCVoiceHud/LCVoiceHud/LCVoiceHud/Classes/LCVoice.h

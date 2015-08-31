@@ -1,0 +1,41 @@
+//
+//  Prefix.pch
+//  Family
+//
+//  Created by jia on 15/8/13.
+//  Copyright (c) 2015年 jia. All rights reserved.
+//
+
+#ifndef Family_Prefix_pch
+#define Family_Prefix_pch
+
+#ifdef __OBJC__
+#import <UIKit/UIKit.h>
+#import <Foundation/Foundation.h>
+#import "ACMacros.h"
+// #import "DDLog.h"
+#import "NotificationNameDefine.h"
+#endif
+
+#define kUsingTranslucentNavigationBar 1 // 半透明导航栏
+#define kUsingTranslucentTabBar        1 // 半透明切换栏
+#define kUsingChatModule               0
+#define kUsingAPNS                     0
+#define kUsingTheme                    0
+#define kUsingUserLogin                0
+
+// For XMPP
+#define kHost @"10.37.148.77"
+#define kMyJID @"myjid"
+#define kPS @"password"
+#define kRoomJID @"myroom"
+
+#ifdef DEBUG
+#define NSLog(...) NSLog(__VA_ARGS__)
+#define debugMethod() NSLog(@"%s", __func__)
+#else
+#define NSLog(...)
+#define debugMethod()
+#endif
+
+#endif

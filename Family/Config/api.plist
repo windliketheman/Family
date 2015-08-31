@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>ServerAddress</key>
+	<string>119.254.196.16</string>
+	<key>ServerPort</key>
+	<string>80</string>
+	<key>OpenfireAddress</key>
+	<string>119.254.196.17</string>
+	<key>OpenfirePort</key>
+	<string>5222</string>
+	<key>OpenfireServerPort</key>
+	<string>9090</string>
+	<key>LanguageFlag</key>
+	<string>zh</string>
+</dict>
+</plist>

@@ -1,0 +1,6 @@
+#include "Pods-OHAttributedLabel.xcconfig"
+GCC_PREPROCESSOR_DEFINITIONS = $(inherited) COCOAPODS=1
+HEADER_SEARCH_PATHS = "${PODS_ROOT}/Headers/Private" "${PODS_ROOT}/Headers/Private/OHAttributedLabel" "${PODS_ROOT}/Headers/Public" "${PODS_ROOT}/Headers/Public/AFNetworking" "${PODS_ROOT}/Headers/Public/ASIHTTPRequest" "${PODS_ROOT}/Headers/Public/FMDB" "${PODS_ROOT}/Headers/Public/JSONModel" "${PODS_ROOT}/Headers/Public/LCVoiceHud" "${PODS_ROOT}/Headers/Public/MBProgressHUD" "${PODS_ROOT}/Headers/Public/MJRefresh" "${PODS_ROOT}/Headers/Public/MKNetworkKit" "${PODS_ROOT}/Headers/Public/MKNetworkKit/Categories" "${PODS_ROOT}/Headers/Public/Masonry" "${PODS_ROOT}/Headers/Public/OHAttributedLabel" "${PODS_ROOT}/Headers/Public/Reachability" "${PODS_ROOT}/Headers/Public/RegexKitLite" "${PODS_ROOT}/Headers/Public/SDWebImage" "${PODS_ROOT}/Headers/Public/ZBarSDK" "${PODS_ROOT}/Headers/Public/libqrencode"
+OTHER_LDFLAGS = ${PODS_OHATTRIBUTEDLABEL_OTHER_LDFLAGS} -ObjC
+PODS_ROOT = ${SRCROOT}
+SKIP_INSTALL = YES
