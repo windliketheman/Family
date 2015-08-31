@@ -56,8 +56,6 @@
     self.edgesForExtendedLayout = UIRectEdgeAll;
     self.extendedLayoutIncludesOpaqueBars = NO; //不透明的导航栏，原点是否为屏幕左上角，NO：导航栏左下为原点
     self.view.backgroundColor = [UIColor whiteColor];
-    
-    [self runNetworkMonitoring];
 }
 
 - (void)viewWillAppear:(BOOL)animated

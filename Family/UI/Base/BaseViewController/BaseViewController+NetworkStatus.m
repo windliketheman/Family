@@ -16,12 +16,19 @@ static NetworkStatus initNetworkStatus;
 
 @implementation BaseViewController (NetworkStatus)
 
-- (void)runNetworkMonitoring
+// 添加网络监控
+- (void)addNetworkMonitoring
 {
-    // [self resetNetworkStatus];
+    [AppNetworkMonitoring shareInstance];
     
     //网络状态变化监听
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(networkStatusChanged:) name:kNotifyNetworkStatusChanged object:nil];
+}
+
+// 移除网络监控
+- (void)removeNetworkMonitoring
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:kNotifyNetworkStatusChanged object:nil];
 }
 
 - (BOOL)isNoNetwork
