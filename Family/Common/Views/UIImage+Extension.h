@@ -3,7 +3,7 @@
 //  乐拍
 //
 //  Created by junbo jia on 14-7-24.
-//  Copyright (c) 2014年 Letv. All rights reserved.
+//  Copyright (c) 2014年 jia. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>

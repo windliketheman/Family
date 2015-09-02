@@ -2,7 +2,7 @@
 //  DownloadCore.h
 //  DownloadCore
 //
-//  Created by jiajb letv on 14-3-14.
+//  Created by jia on 14-3-14.
 //  Copyright (c) 2014年 iphone. All rights reserved.
 //
 

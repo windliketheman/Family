@@ -13,29 +13,29 @@
 
 #define kLoadingUsingHUD 1
 
-static const char *kLoadingViewPropertyKey = "LoadingViewProperty";
-static const char *kPromptViewPropertyKey = "PromptViewProperty";
+static char loadingViewKey;
+static char promptViewKey;
 
 @implementation UIView (LoadingPrompt)
 
 - (void)setLoadingViewProperty:(UIView *)lesoLoadView
 {
-    objc_setAssociatedObject(self, kLoadingViewPropertyKey, lesoLoadView, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    objc_setAssociatedObject(self, &loadingViewKey, lesoLoadView, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 
 - (UIView *)loadingViewProperty
 {
-    return objc_getAssociatedObject(self, kLoadingViewPropertyKey);
+    return objc_getAssociatedObject(self, &loadingViewKey);
 }
 
 - (void)setPromptViewProperty:(UIView *)promptView
 {
-    objc_setAssociatedObject(self, kPromptViewPropertyKey, promptView, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    objc_setAssociatedObject(self, &promptViewKey, promptView, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 
 - (UIView *)promptViewProperty
 {
-    return objc_getAssociatedObject(self, kPromptViewPropertyKey);
+    return objc_getAssociatedObject(self, &promptViewKey);
 }
 
 - (void)showLoadingViewWithText:(NSString *)text

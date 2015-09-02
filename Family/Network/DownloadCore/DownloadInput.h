@@ -2,7 +2,7 @@
 //  DownloadInput.h
 //  DownloadTestDemo
 //
-//  Created by jiajb letv on 14-3-19.
+//  Created by jia on 14-3-19.
 //  Copyright (c) 2014年 iphone. All rights reserved.
 //
 

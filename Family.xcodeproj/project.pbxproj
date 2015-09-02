@@ -212,6 +212,7 @@
 		E7C9BB831B8F13C200C8F3B5 /* NetworkCore.m in Sources */ = {isa = PBXBuildFile; fileRef = E7C9BB801B8F13C200C8F3B5 /* NetworkCore.m */; };
 		E7C9BB841B8F13C200C8F3B5 /* NSString+Sha1.m in Sources */ = {isa = PBXBuildFile; fileRef = E7C9BB821B8F13C200C8F3B5 /* NSString+Sha1.m */; };
 		E7C9BB921B8F16CC00C8F3B5 /* libDownloadCore.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E7C9BB911B8F16CC00C8F3B5 /* libDownloadCore.a */; };
+		E7DF4FA71B95439B00CB443E /* UploadCore.m in Sources */ = {isa = PBXBuildFile; fileRef = E7DF4FA61B95439B00CB443E /* UploadCore.m */; };
 		E7EC96B51B7D9156002C8F0E /* libresolv.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = E7EC96B41B7D9156002C8F0E /* libresolv.dylib */; };
 		E7EC96E71B7D969D002C8F0E /* BaiduMapAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E7EC96B71B7D969D002C8F0E /* BaiduMapAPI.framework */; };
 		E7EC96E91B7D969D002C8F0E /* mapapi.bundle in Resources */ = {isa = PBXBuildFile; fileRef = E7EC96BA1B7D969D002C8F0E /* mapapi.bundle */; };
@@ -663,6 +664,8 @@
 		E7C9BB8F1B8F16CC00C8F3B5 /* DownloadCore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DownloadCore.h; sourceTree = "<group>"; };
 		E7C9BB901B8F16CC00C8F3B5 /* DownloadInput.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DownloadInput.h; sourceTree = "<group>"; };
 		E7C9BB911B8F16CC00C8F3B5 /* libDownloadCore.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libDownloadCore.a; sourceTree = "<group>"; };
+		E7DF4FA51B95439B00CB443E /* UploadCore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UploadCore.h; sourceTree = "<group>"; };
+		E7DF4FA61B95439B00CB443E /* UploadCore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UploadCore.m; sourceTree = "<group>"; };
 		E7EC96B41B7D9156002C8F0E /* libresolv.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libresolv.dylib; path = usr/lib/libresolv.dylib; sourceTree = SDKROOT; };
 		E7EC96B71B7D969D002C8F0E /* BaiduMapAPI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = BaiduMapAPI.framework; sourceTree = "<group>"; };
 		E7EC96BA1B7D969D002C8F0E /* mapapi.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = mapapi.bundle; sourceTree = "<group>"; };
@@ -995,6 +998,7 @@
 		E7BBF2381B7CAB91004DCC3F /* Network */ = {
 			isa = PBXGroup;
 			children = (
+				E7DF4FA11B95420E00CB443E /* UploadCore */,
 				E7C9BB8E1B8F16CC00C8F3B5 /* DownloadCore */,
 				E7C9BB7A1B8F138F00C8F3B5 /* RequestCore */,
 				E7C9BB7E1B8F13C200C8F3B5 /* NetworkCore */,
@@ -1924,6 +1928,15 @@
 			path = DownloadCore;
 			sourceTree = "<group>";
 		};
+		E7DF4FA11B95420E00CB443E /* UploadCore */ = {
+			isa = PBXGroup;
+			children = (
+				E7DF4FA51B95439B00CB443E /* UploadCore.h */,
+				E7DF4FA61B95439B00CB443E /* UploadCore.m */,
+			);
+			path = UploadCore;
+			sourceTree = "<group>";
+		};
 		E7EC96B61B7D969D002C8F0E /* BaiduMap */ = {
 			isa = PBXGroup;
 			children = (
@@ -2281,6 +2294,7 @@
 				E7BBF4361B7CADD1004DCC3F /* XMPPAttentionModule.m in Sources */,
 				E7BBF3C91B7CADD1004DCC3F /* wav.mm in Sources */,
 				E7BBF4401B7CADD1004DCC3F /* XMPPSRVResolver.m in Sources */,
+				E7DF4FA71B95439B00CB443E /* UploadCore.m in Sources */,
 				E7AB24641B81EE3000E90182 /* BaseViewController+NetworkStatus.m in Sources */,
 				E7BBF3E91B7CADD1004DCC3F /* XMPPProcessOne.m in Sources */,
 				E7BBF4261B7CADD1004DCC3F /* XMPPMessageArchiving.xcdatamodeld in Sources */,

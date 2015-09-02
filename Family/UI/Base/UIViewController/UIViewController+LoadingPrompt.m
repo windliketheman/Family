@@ -13,16 +13,16 @@
 
 @implementation UIViewController (LoadingPrompt)
 
-static const char *kLoadingViewSuperViewPropertyKey = "LoadingViewSuperViewProperty";
+static char loadingViewSuperViewKey;
 
 - (void)setLoadingViewSuperView:(UIView *)lesoLoadView
 {
-    objc_setAssociatedObject(self, kLoadingViewSuperViewPropertyKey, lesoLoadView, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    objc_setAssociatedObject(self, &loadingViewSuperViewKey, lesoLoadView, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 
 - (UIView *)loadingViewSuperView
 {
-    return objc_getAssociatedObject(self, kLoadingViewSuperViewPropertyKey);
+    return objc_getAssociatedObject(self, &loadingViewSuperViewKey);
 }
 
 - (void)showLoadingWithText:(NSString *)text inView:(UIView *)toView
