@@ -11,6 +11,21 @@
 #import "BaseViewController+Picker.h"
 #import "UINavigationController+Custom.h"
 #import "UIImageView+WebCache.h"
+#import "UIImage+Extension.h"
+
+#if 0
+    #define kRemoveNavigationBarBottomLineWay1
+#else
+    #define kRemoveNavigationBarBottomLineWay2
+#endif
+
+@interface HomelandViewController ()
+{
+#ifdef kRemoveNavigationBarBottomLineWay2
+    UIImageView *navBarHairlineImageView;
+#endif
+}
+@end
 
 @implementation HomelandViewController
 
@@ -18,6 +33,20 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+#ifdef kRemoveNavigationBarBottomLineWay1
+    UINavigationBar *navigationBar = self.navigationController.navigationBar;
+    [navigationBar setBackgroundImage:[UIImage imageWithColor:[UIColor whiteColor] size:CGSizeMake(1, 1)]
+                       forBarPosition:UIBarPositionAny
+                           barMetrics:UIBarMetricsDefault];
+    [navigationBar setShadowImage:[UIImage new]];
+#endif
+    
+#ifdef kRemoveNavigationBarBottomLineWay2
+    // PS: 这种方法可以保持bar的translucent
+    UINavigationBar *navigationBar = self.navigationController.navigationBar;
+    navBarHairlineImageView = [self findHairlineImageViewUnder:navigationBar];
+#endif
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -25,6 +54,19 @@
     [super viewWillAppear:animated];
     
     [self setNavigationBarTitle:NSLocalizedString(@"家园", nil)];
+    
+#ifdef kRemoveNavigationBarBottomLineWay2
+    navBarHairlineImageView.hidden = YES;
+#endif
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    
+#ifdef kRemoveNavigationBarBottomLineWay2
+    navBarHairlineImageView.hidden = NO;
+#endif
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -38,12 +80,31 @@
 
 - (void)adjustNavigationBarColor
 {
-    [self setNavigationBarColor:[UIColor redColor]];
+    [self setNavigationBarColor:nil];
 }
 
 - (void)adjustNavigationBarTitleColor
 {
     [self setNavigationBarTitleColor:[UIColor whiteColor]];
+}
+
+#pragma mark - Inner Methods
+- (UIImageView *)findHairlineImageViewUnder:(UIView *)view
+{
+    if ([view isKindOfClass:UIImageView.class] && view.bounds.size.height <= 1.0)
+    {
+        return (UIImageView *)view;
+    }
+    
+    for (UIView *subview in view.subviews)
+    {
+        UIImageView *imageView = [self findHairlineImageViewUnder:subview];
+        if (imageView)
+        {
+            return imageView;
+        }
+    }
+    return nil;
 }
 
 #pragma mark - TableView

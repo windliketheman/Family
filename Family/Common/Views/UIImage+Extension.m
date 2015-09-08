@@ -3,7 +3,7 @@
 //  乐拍
 //
 //  Created by junbo jia on 14-7-24.
-//  Copyright (c) 2014年 jia. All rights reserved.
+//  Copyright (c) 2014年 Letv. All rights reserved.
 //
 
 #import "UIImage+Extension.h"
@@ -380,42 +380,96 @@ void ProviderReleaseData (void *info, const void *data, size_t size)
 
 @end
 
+// 2张图合成1张
 @implementation UIImage (MakeImage)
 
-// 2张图合成1张
+// place upper image in origin (0, 0)
 + (UIImage *)addImage:(UIImage *)upperImage toImage:(UIImage *)baseImage
 {
-    return [self addImage:upperImage toImage:baseImage atCenter:NO];
+    return [self addImage:upperImage toImage:baseImage inCenter:NO];
 }
 
-+ (UIImage *)addImage:(UIImage *)upperImage toImage:(UIImage *)baseImage atCenter:(BOOL)atCenter
+// place upper image in origin center ? center : (0, 0)
++ (UIImage *)addImage:(UIImage *)upperImage toImage:(UIImage *)baseImage inCenter:(BOOL)center
 {
-    return [baseImage addImage:upperImage atCenter:atCenter];
-}
-
-- (UIImage *)addImage:(UIImage *)upperImage
-{
-    return [self addImage:upperImage atCenter:NO];
-}
-
-- (UIImage *)addImage:(UIImage *)upperImage atCenter:(BOOL)atCenter
-{
-    CGSize baseSize = CGSizeMake(self.size.width * self.scale, self.size.height * self.scale);
+    CGSize baseSize = CGSizeMake(baseImage.size.width * baseImage.scale, baseImage.size.height * baseImage.scale);
     CGSize upperImageSize = CGSizeMake(upperImage.size.width * upperImage.scale, upperImage.size.height * upperImage.scale);
-    
-    UIGraphicsBeginImageContext(baseSize);
-    
-    if (atCenter)
+    CGRect upperImageRect;
+    if (center)
     {
         float x = (baseSize.width - upperImageSize.width) / 2.0f;
         float y = (baseSize.height - upperImageSize.height) / 2.0f;
-        [self drawInRect:CGRectMake(0, 0, baseSize.width, baseSize.height)];
-        [upperImage drawInRect:CGRectMake(x, y, upperImageSize.width, upperImageSize.height)];
+        upperImageRect = CGRectMake(x, y, upperImageSize.width, upperImageSize.height);
     }
     else
     {
-        [self drawInRect:CGRectMake(0, 0, baseSize.width, baseSize.height)];
-        [upperImage drawInRect:CGRectMake(0, 0, upperImageSize.width, upperImageSize.height)];
+        upperImageRect = CGRectMake(0, 0, upperImageSize.width, upperImageSize.height);
+    }
+    
+    return [UIImage addImage:upperImage toImage:baseImage inRect:upperImageRect];
+}
+
+// place upper image in rect
++ (UIImage *)addImage:(UIImage *)upperImage toImage:(UIImage *)baseImage inRect:(CGRect)rect
+{
+    CGSize baseSize = CGSizeMake(baseImage.size.width * baseImage.scale, baseImage.size.height * baseImage.scale);
+    
+    UIGraphicsBeginImageContext(baseSize);
+    
+    [baseImage drawInRect:CGRectMake(0, 0, baseSize.width, baseSize.height)];
+    
+    [upperImage drawInRect:rect];
+    
+    UIImage *resultingImage = UIGraphicsGetImageFromCurrentImageContext();
+    
+    UIGraphicsEndImageContext();
+    
+    return resultingImage;
+}
+
++ (UIImage *)addResources:(NSArray *)rss inRects:(NSArray *)rects toImage:(UIImage *)baseImage
+{
+    if (!rss || !rects || ![rss isKindOfClass:[NSArray class]] || ![rects isKindOfClass:[NSArray class]] || rss.count != rects.count)
+    {
+        return nil;
+    }
+    
+    CGSize baseSize = CGSizeMake(baseImage.size.width * baseImage.scale, baseImage.size.height * baseImage.scale);
+    
+    UIGraphicsBeginImageContext(baseSize);
+    CGContextRef context = UIGraphicsGetCurrentContext();
+    
+    [baseImage drawInRect:CGRectMake(0, 0, baseSize.width, baseSize.height)];
+    
+    for (int i = 0; i < rss.count; ++i)
+    {
+        id item = rss[i];
+        if ([item isKindOfClass:[UIImage class]])
+        {
+            UIImage *subImage = item;
+            [subImage drawInRect:CGRectFromString(rects[i])];
+        }
+        else if ([item isKindOfClass:[NSDictionary class]])
+        {
+            NSDictionary *textRss = item;
+            
+#if 0
+            CGContextSetFillColorWithColor(context, ((UIColor *)textRss[kTextRssColorKey]).CGColor);
+            [(NSString *)textRss[kTextRssTextKey] drawInRect:CGRectFromString(rects[i])
+                                                    withFont:(UIFont *)textRss[kTextRssFontKey]
+                                               lineBreakMode:NSLineBreakByWordWrapping
+                                                   alignment:NSTextAlignmentCenter];
+#else
+            [(NSString *)textRss[kTextRssTextKey] drawInRect:CGRectFromString(rects[i])
+                                              withAttributes:@{NSFontAttributeName : textRss[kTextRssFontKey],
+                                                               NSForegroundColorAttributeName : textRss[kTextRssColorKey],
+                                                               NSParagraphStyleAttributeName : textRss[kTextRssParagraphKey]}];
+#endif
+        }
+        else
+        {
+            continue;
+        }
     }
     
     UIImage *resultingImage = UIGraphicsGetImageFromCurrentImageContext();

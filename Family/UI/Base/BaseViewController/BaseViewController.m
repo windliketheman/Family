@@ -497,15 +497,29 @@
 
 - (void)setNavigationBarLeftButtonItem:(UIBarButtonItem *)leftButtonItem
 {
-    self.navigationLeftButtonItem = leftButtonItem;
-    
     if ([self.parentViewController isKindOfClass:[UINavigationController class]])
     {
-        self.navigationItem.leftBarButtonItem = leftButtonItem;
+        if ([leftButtonItem isKindOfClass:[NSArray class]])
+        {
+            self.navigationItem.leftBarButtonItems = (NSArray *)leftButtonItem;
+        }
+        else
+        {
+            self.navigationLeftButtonItem = leftButtonItem;
+            self.navigationItem.leftBarButtonItem = leftButtonItem;
+        }
     }
     else if ([self.parentViewController isKindOfClass:[UITabBarController class]])
     {
-        self.tabBarController.navigationItem.leftBarButtonItem = leftButtonItem;
+        if ([leftButtonItem isKindOfClass:[NSArray class]])
+        {
+            self.tabBarController.navigationItem.leftBarButtonItems = (NSArray *)leftButtonItem;
+        }
+        else
+        {
+            self.navigationLeftButtonItem = leftButtonItem;
+            self.tabBarController.navigationItem.leftBarButtonItem = leftButtonItem;
+        }
     }
     else
     {
@@ -631,7 +645,12 @@
     UIButton *button = nil;
     UIBarButtonItem *item = [self barButtonItemWithImage:leftItemImage action:leftItemSelector button:&button];
     self.navigationLeftButton = button;
-    [self setNavigationBarLeftButtonItem:item];
+    
+    UIBarButtonItem *space = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:self action:0];
+    space.width = -5.0f;
+    
+    self.navigationLeftButtonItem = item;
+    [self setNavigationBarLeftButtonItem:(UIBarButtonItem *)@[space, item]];
 }
 
 - (void)addNavigationBarLeftButtonItemWithImageName:(NSString *)leftItemImageName action:(SEL)leftItemSelector

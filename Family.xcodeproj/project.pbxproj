@@ -23,6 +23,7 @@
 		E72D2E611B8AF3C600778A40 /* UIImage+RSKImageCropper.m in Sources */ = {isa = PBXBuildFile; fileRef = E72D2E5B1B8AF3C600778A40 /* UIImage+RSKImageCropper.m */; };
 		E72D2E631B8AFE7200778A40 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E72D2E621B8AFE7200778A40 /* MobileCoreServices.framework */; };
 		E72D2E661B8B062600778A40 /* BaseViewController+Picker.m in Sources */ = {isa = PBXBuildFile; fileRef = E72D2E651B8B062600778A40 /* BaseViewController+Picker.m */; };
+		E7760C361B9A603C008EA82D /* UINavigationItem+CustomBackButtonItem.m in Sources */ = {isa = PBXBuildFile; fileRef = E7760C351B9A603C008EA82D /* UINavigationItem+CustomBackButtonItem.m */; };
 		E7AB24631B81EE3000E90182 /* BaseTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E7AB245E1B81EE3000E90182 /* BaseTableViewController.m */; };
 		E7AB24641B81EE3000E90182 /* BaseViewController+NetworkStatus.m in Sources */ = {isa = PBXBuildFile; fileRef = E7AB24601B81EE3000E90182 /* BaseViewController+NetworkStatus.m */; };
 		E7AB24651B81EE3000E90182 /* BaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E7AB24621B81EE3000E90182 /* BaseViewController.m */; };
@@ -268,6 +269,8 @@
 		E72D2E621B8AFE7200778A40 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
 		E72D2E641B8B062600778A40 /* BaseViewController+Picker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "BaseViewController+Picker.h"; sourceTree = "<group>"; };
 		E72D2E651B8B062600778A40 /* BaseViewController+Picker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "BaseViewController+Picker.m"; sourceTree = "<group>"; };
+		E7760C341B9A603C008EA82D /* UINavigationItem+CustomBackButtonItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UINavigationItem+CustomBackButtonItem.h"; sourceTree = "<group>"; };
+		E7760C351B9A603C008EA82D /* UINavigationItem+CustomBackButtonItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UINavigationItem+CustomBackButtonItem.m"; sourceTree = "<group>"; };
 		E7AB245D1B81EE3000E90182 /* BaseTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseTableViewController.h; sourceTree = "<group>"; };
 		E7AB245E1B81EE3000E90182 /* BaseTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseTableViewController.m; sourceTree = "<group>"; };
 		E7AB245F1B81EE3000E90182 /* BaseViewController+NetworkStatus.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "BaseViewController+NetworkStatus.h"; sourceTree = "<group>"; };
@@ -2044,12 +2047,14 @@
 		E7EC97521B7DEDE3002C8F0E /* NavigationController */ = {
 			isa = PBXGroup;
 			children = (
-				E7AB24661B81EE4600E90182 /* UINavigationController+Custom.h */,
-				E7AB24671B81EE4600E90182 /* UINavigationController+Custom.m */,
 				E7EC97551B7DEDE3002C8F0E /* BaseNavigationController.h */,
 				E7EC97561B7DEDE3002C8F0E /* BaseNavigationController.m */,
 				E7EC97531B7DEDE3002C8F0E /* BaseNavigationBar.h */,
 				E7EC97541B7DEDE3002C8F0E /* BaseNavigationBar.m */,
+				E7AB24661B81EE4600E90182 /* UINavigationController+Custom.h */,
+				E7AB24671B81EE4600E90182 /* UINavigationController+Custom.m */,
+				E7760C341B9A603C008EA82D /* UINavigationItem+CustomBackButtonItem.h */,
+				E7760C351B9A603C008EA82D /* UINavigationItem+CustomBackButtonItem.m */,
 			);
 			path = NavigationController;
 			sourceTree = "<group>";
@@ -2395,6 +2400,7 @@
 				E7BBF4471B7CADD1004DCC3F /* ContextFilterLogFormatter.m in Sources */,
 				E72D2E601B8AF3C600778A40 /* UIApplication+RSKImageCropper.m in Sources */,
 				E7BBF46E1B7CB687004DCC3F /* BaseDataManage.m in Sources */,
+				E7760C361B9A603C008EA82D /* UINavigationItem+CustomBackButtonItem.m in Sources */,
 				E7EC97171B7D9E70002C8F0E /* LoginViewController.m in Sources */,
 				E7BBF4621B7CB5A4004DCC3F /* ChatMsgDTO.m in Sources */,
 				E7BBF1621B7C764C004DCC3F /* main.m in Sources */,

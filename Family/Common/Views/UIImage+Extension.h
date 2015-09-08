@@ -3,7 +3,7 @@
 //  乐拍
 //
 //  Created by junbo jia on 14-7-24.
-//  Copyright (c) 2014年 jia. All rights reserved.
+//  Copyright (c) 2014年 Letv. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
@@ -49,15 +49,21 @@
 
 @end
 
-@interface UIImage (MakeImage)
+#define kTextRssTextKey       @"TextRssText"
+#define kTextRssFontKey       @"TextRssFont"
+#define kTextRssColorKey      @"TextRssColor"
+#define kTextRssParagraphKey  @"TextRssParagraph"
 
 // 2张图合成1张
+@interface UIImage (MakeImage)
+// place upper image in origin (0, 0)
 + (UIImage *)addImage:(UIImage *)upperImage toImage:(UIImage *)baseImage;
-+ (UIImage *)addImage:(UIImage *)upperImage toImage:(UIImage *)baseImage atCenter:(BOOL)atCenter;
-
-- (UIImage *)addImage:(UIImage *)upperImage;
-- (UIImage *)addImage:(UIImage *)upperImage atCenter:(BOOL)atCenter;
-
+// place upper image in origin center ? center : (0, 0)
++ (UIImage *)addImage:(UIImage *)upperImage toImage:(UIImage *)baseImage inCenter:(BOOL)center;
+// place upper image in rect
++ (UIImage *)addImage:(UIImage *)upperImage toImage:(UIImage *)baseImage inRect:(CGRect)rect;
+// place image, text in rects
++ (UIImage *)addResources:(NSArray *)rss inRects:(NSArray *)rects toImage:(UIImage *)baseImage;
 @end
 
 @interface UIImage (Reflection)
