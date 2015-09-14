@@ -1,7 +1,14 @@
+//
+//  NSString+NetworkCore.m
+//  Family
+//
+//  Created by jia on 15/9/11.
+//  Copyright (c) 2015年 jia. All rights reserved.
+//
 
-#import "NSString+Sha1.h"
+#import "NSString+NetworkCore.h"
 
-@implementation NSString (Sha1)
+@implementation NSString (NetworkCore)
 
 - (NSString *)sha1
 {
@@ -19,6 +26,5 @@
     
     return output;
 }
-
 
 @end

@@ -3,7 +3,7 @@
 //  Lepai
 //
 //  Created by junbo jia on 14/11/9.
-//  Copyright (c) 2014年 jia. All rights reserved.
+//  Copyright (c) 2014年 Letv. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>

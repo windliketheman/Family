@@ -9,6 +9,8 @@
 #import "CommonData.h"
 #import "CommonDataItemsKeys.h"
 
+#define kIntroductionHasUpdated 1
+
 @implementation CommonData
 
 + (instancetype)instance
@@ -164,7 +166,7 @@
 }
 
 //查询当前用户信息
-+ (NSDictionary *)queryLoginUserInfo;
++ (NSDictionary *)queryLoginUserInfo
 {
     NSUserDefaults *defaults =[NSUserDefaults standardUserDefaults];
     NSString *key = [NSString stringWithFormat:@"Ennew_%@",[defaults objectForKey:[self queryLoginUserId]]];

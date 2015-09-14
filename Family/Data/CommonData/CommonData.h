@@ -9,9 +9,9 @@
 #import <Foundation/Foundation.h>
 #import "AppSetting.h"
 
-#define kIntroductionHasUpdated 1
-
 @interface CommonData : NSObject
+
+@property (nonatomic, strong) AppSetting *appSetting;
 
 + (instancetype)instance;
 
@@ -19,7 +19,15 @@
 
 + (NSString *)serverURL;
 
+#pragma mark - User Info
 + (NSString *)userAvatarURL;
++ (BOOL)hasUserLogined;
++ (NSString *)queryLoginUserId;
++ (NSDictionary *)queryLoginUserInfo;
++ (void)saveLogionUserInfo:(NSDictionary *)dict;
++ (NSString *)queryLoginUserPhone;
++ (NSString *)queryLOginUserPassWord;
++ (NSString *)queryLoginUserName;
 
 + (NSString *)getFileDownloadPath:(NSString *)file;
 
@@ -41,7 +49,5 @@
 #pragma mark - Theme
 + (void)saveThemeInfo:(NSString *)themeImageName;
 + (NSString *)ThemeInfo;
-
-@property (nonatomic, strong) AppSetting *appSetting;
 
 @end

@@ -312,8 +312,9 @@ CFAbsoluteTime startTime;
                                                   CGLabelFontSize * kScaleFactor : CGLabelFontSize)
 
 
-#define kNavigationBarBGColor             RGBCOLOR(122, 122, 122)
+#define kNavigationBarBGColor             RGBCOLOR(255, 255, 255)
 #define kNavigationBarTitleColor          RGBCOLOR(52, 52, 52)
+#define kNavigationBarItemColor           RGBSCOLOR(0)
 
 #define kAppID                    @"1020541636"
 #define AppVersion                ([[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"])

@@ -18,7 +18,7 @@
     [self GET:urlstring params:params returnModel:nil success:successBlock failure:failureBlock];
 }
 
-+ (void)GET:(NSString *)urlstring params:(NSDictionary *)params returnModel:(Class)dataItemClass success:(Success)successBlock failure:(Failure)failureBlock
++ (void)GET:(NSString *)urlstring params:(NSDictionary *)params returnModel:(Class)JSONModelClass success:(Success)successBlock failure:(Failure)failureBlock
 {
     if (!urlstring)
     {
@@ -50,58 +50,7 @@
         {
             if (result)
             {
-                // 未传入数据实体，不解析
-                if (!dataItemClass)
-                {
-                    successBlock(result);
-                    return;
-                }
-                
-                id jsonData = [self unpackResponseData:(NSData *)result];
-                
-                if ([jsonData isKindOfClass:[NSArray class]])
-                {
-                    NSMutableArray *outputArray = [[NSMutableArray alloc] init];
-                    for (NSDictionary *dic in jsonData)
-                    {
-                        JSONModel *itemData = [[dataItemClass alloc] initWithDictionary:dic error:nil];
-                        
-                        if (dataItemClass == NSClassFromString(@"FamilyMembersModel"))
-                        {
-                            if (dic[@"nickName"])
-                            {
-                                [itemData setValue:dic[@"nickName"] forKeyPath:@"nickName"];
-                            }
-                            
-                            if (dic[@"userID"])
-                            {
-                                [itemData setValue:dic[@"userID"] forKeyPath:@"userID"];
-                            }
-                        }
-                        
-                        [outputArray addObject:itemData];
-                    }
-                    
-                    successBlock(outputArray);
-                    return;
-                }
-                else if ([jsonData isKindOfClass:[NSDictionary class]])
-                {
-                    JSONModel *dataModal = [[dataItemClass alloc] initWithDictionary:jsonData error:nil];
-                    
-                    successBlock(dataModal);
-                    return;
-                }
-                else if ([jsonData isKindOfClass:[NSString class]])
-                {
-                    successBlock((NSString *)jsonData);
-                    return;
-                }
-                else
-                {
-                    successBlock(jsonData);
-                    return;
-                }
+                [self request:operation complectionData:result callback:successBlock dataModal:JSONModelClass];
             }
             else
             {
@@ -124,7 +73,7 @@
     [self POST:urlstring params:params returnModel:nil success:successBlock failure:failureBlock];
 }
 
-+ (void)POST:(NSString *)urlstring params:(NSDictionary *)params returnModel:(Class)dataItemClass success:(Success)successBlock failure:(Failure)failureBlock
++ (void)POST:(NSString *)urlstring params:(NSDictionary *)params returnModel:(Class)JSONModelClass success:(Success)successBlock failure:(Failure)failureBlock
 {
     if (!urlstring)
     {
@@ -156,58 +105,7 @@
         {
             if (result)
             {
-                // 未传入数据实体，不解析
-                if (!dataItemClass)
-                {
-                    successBlock(result);
-                    return;
-                }
-                
-                id jsonData = [self unpackResponseData:(NSData *)result];
-                
-                if ([jsonData isKindOfClass:[NSArray class]])
-                {
-                    NSMutableArray *outputArray = [[NSMutableArray alloc] init];
-                    for (NSDictionary *dic in jsonData)
-                    {
-                        JSONModel *itemData = [[dataItemClass alloc] initWithDictionary:dic error:nil];
-                        
-                        if (dataItemClass == NSClassFromString(@"FamilyMembersModel"))
-                        {
-                            if (dic[@"nickName"])
-                            {
-                                [itemData setValue:dic[@"nickName"] forKeyPath:@"nickName"];
-                            }
-                            
-                            if (dic[@"userID"])
-                            {
-                                [itemData setValue:dic[@"userID"] forKeyPath:@"userID"];
-                            }
-                        }
-                        
-                        [outputArray addObject:itemData];
-                    }
-                    
-                    successBlock(outputArray);
-                    return;
-                }
-                else if ([jsonData isKindOfClass:[NSDictionary class]])
-                {
-                    JSONModel *dataModal = [[dataItemClass alloc] initWithDictionary:jsonData error:nil];
-                    
-                    successBlock(dataModal);
-                    return;
-                }
-                else if ([jsonData isKindOfClass:[NSString class]])
-                {
-                    successBlock((NSString *)jsonData);
-                    return;
-                }
-                else
-                {
-                    successBlock(jsonData);
-                    return;
-                }
+                [self request:operation complectionData:result callback:successBlock dataModal:JSONModelClass];
             }
             else
             {
@@ -219,10 +117,70 @@
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         if (error && failureBlock)
         {
+            NSDictionary *headerFields = [operation.request allHTTPHeaderFields];
+            NSLog(@"HTTPHeaderFields: %@", [headerFields description]);
+            
             failureBlock(error);
             return;
         }
     }];
+}
+
++ (void)request:(AFHTTPRequestOperation *)operation complectionData:(id)result callback:(Success)successBlock dataModal:(Class)JSONModelClass
+{
+    // successBlock([[NSString alloc] initWithData:result encoding:NSUTF8StringEncoding]);
+    id jsonData = [self unpackResponseData:(NSData *)result];
+    
+    // 未传入数据实体，不解析
+    if (!JSONModelClass ||
+        ![JSONModelClass isSubclassOfClass:[JSONModel class]])
+    {
+        successBlock(jsonData);
+        return;
+    }
+    else
+    {
+        if ([jsonData isKindOfClass:[NSArray class]])
+        {
+            NSMutableArray *outputArray = [[NSMutableArray alloc] init];
+            for (NSDictionary *dic in jsonData)
+            {
+                JSONModel *itemData = [[JSONModelClass alloc] initWithDictionary:dic error:nil];
+                
+#if 0
+                if (JSONModelClass == NSClassFromString(@"FamilyMembersModel"))
+                {
+                    if (dic[@"nickName"])
+                    {
+                        [itemData setValue:dic[@"nickName"] forKeyPath:@"nickName"];
+                    }
+                    
+                    if (dic[@"userID"])
+                    {
+                        [itemData setValue:dic[@"userID"] forKeyPath:@"userID"];
+                    }
+                }
+#endif
+                
+                [outputArray addObject:itemData];
+            }
+            
+            successBlock(outputArray);
+            return;
+        }
+        else if ([jsonData isKindOfClass:[NSDictionary class]])
+        {
+            JSONModel *dataModal = [[JSONModelClass alloc] initWithDictionary:jsonData error:nil];
+            
+            successBlock(dataModal);
+            return;
+        }
+        else
+        {
+            successBlock(jsonData);
+            return;
+        }
+    }
 }
 
 // 解析服务端返回的数据返回基本类型

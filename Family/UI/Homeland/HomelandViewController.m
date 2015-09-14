@@ -13,6 +13,8 @@
 #import "UIImageView+WebCache.h"
 #import "UIImage+Extension.h"
 
+#import "RequestCore.h"
+
 #if 0
     #define kRemoveNavigationBarBottomLineWay1
 #else
@@ -47,6 +49,7 @@
     UINavigationBar *navigationBar = self.navigationController.navigationBar;
     navBarHairlineImageView = [self findHairlineImageViewUnder:navigationBar];
 #endif
+
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -58,6 +61,9 @@
 #ifdef kRemoveNavigationBarBottomLineWay2
     navBarHairlineImageView.hidden = YES;
 #endif
+    
+    
+    [self testRequest];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -81,11 +87,6 @@
 - (void)adjustNavigationBarColor
 {
     [self setNavigationBarColor:nil];
-}
-
-- (void)adjustNavigationBarTitleColor
-{
-    [self setNavigationBarTitleColor:[UIColor whiteColor]];
 }
 
 #pragma mark - Inner Methods
@@ -129,7 +130,7 @@
         [cell.contentView addSubview:imageView];
     }
     
-    [cell.imageView sd_setImageWithURL:[NSURL URLWithString:@"http://cdn.duitang.com/uploads/item/201207/19/20120719132937_dGRrn.thumb.600_0.jpeg"]];
+    // [cell.imageView sd_setImageWithURL:[NSURL URLWithString:@"http://cdn.duitang.com/uploads/item/201207/19/20120719132937_dGRrn.thumb.600_0.jpeg"]];
     
     cell.backgroundColor = [UIColor purpleColor];
     
@@ -171,10 +172,7 @@
     if (0 == indexPath.row)
     {
         WebViewController *web = [[WebViewController alloc] init];
-        web.fileURL = @"http://www.baidu.com";
-        web.fileURL = @"http://119.254.196.16/ennewhelp/"; // help
-        // web.fileURL = @"http://119.254.196.16/about/index.html"; // introduction
-        web.fileURL = @"http://cnn.com";
+        web.fileURL = @"http://www.iqiyi.com";
         [self pushVC:web];
     }
     else if (1 == indexPath.row)
@@ -195,4 +193,17 @@
     [tableView deselectRowAtIndexPath:tableView.indexPathForSelectedRow animated:YES];
 }
 
+#pragma mark - Request
+- (void)testRequest
+{
+    NSString *url = [NSString stringWithFormat:@"%@/%@", ServerURL, GetUserInfoInterface];
+    
+    [RequestCore POST:url params:@{@"intent" : @"1"} returnModel:[NSDictionary class] success:^(id result) {
+        NSDictionary *dic = (NSDictionary *)result;
+        NSLog(@"result: %@", [dic description]);
+    } failure:^(NSError *error) {
+        NSLog(@"Failure url: %@", url);
+        NSLog(@"%@", [error description]);
+    }];
+}
 @end

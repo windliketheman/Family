@@ -19,16 +19,10 @@
 #import <BaiduMapAPI/BMapKit.h>
 #import "CommonData.h"
 #import "UpdateChecker.h"
-#import "NetworkCore.h"
+#import "BusinessNetworkCore.h"
+#import "ServerConfig.h"
 
 #define kSkipSplashEffect 0
-
-#if DEBUG
-// #define ServerConfig @"api_dev"
-#define ServerConfig @"api"
-#else
-#define ServerConfig @"api"
-#endif
 
 @interface AppDelegate ()
 @property (nonatomic, strong) UIViewController *rootViewController;
@@ -336,8 +330,8 @@
         // 初始化数据库文件
         [self initDatabase];
         
-        // 注册网络核心
-        [NetworkCore doRegister];
+        // 注册业务的网络核心
+        [BusinessNetworkCore doRegister];
         
         // 百度地图API
         if (![[[BMKMapManager alloc] init] start:@"YQMgOZ5fkUGKTYH4UhDKCoAV" generalDelegate:nil])

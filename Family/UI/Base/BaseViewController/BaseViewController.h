@@ -15,6 +15,8 @@
 - (void)adjustNavigationBarColor;
 // 子类定制样式 导航栏标题颜色
 - (void)adjustNavigationBarTitleColor;
+// 子类定制样式 导航栏左右按钮颜色
+- (void)adjustNavigationBarButtonItemColor;
 
 // 子类定制内容 务必记得调用[super customNavigationBar];
 - (void)customNavigationBar;
@@ -38,6 +40,7 @@
 - (NSString *)navigationBarTitle;
 - (UIColor *)navigationBarTitleColor;
 - (NSDictionary *)navigationBarTitleAttributes;
+- (UIColor *)navigationBarButtonItemColor;
 - (UIView *)navigationBarTitleView;
 
 - (UIButton *)navigationBarLeftButton;
@@ -46,15 +49,19 @@
 - (UIBarButtonItem *)navigationBarRightButtonItem;
 
 - (BOOL)isFirstTimeAppear;
-- (BOOL)isCurrentViewActived;
+- (BOOL)isViewActived;
 
 #pragma mark --- Setter
+// 设置 导航栏背景色
 - (void)setNavigationBarColor:(UIColor *)barColor;
 
 // 设置 导航栏标题
 - (void)setNavigationBarTitle:(NSString *)title;
 - (void)setNavigationBarTitleColor:(UIColor *)titleColor;
 - (void)setNavigationBarTitleAttributes:(NSDictionary *)property;
+
+// 设置 导航栏按钮颜色
+- (void)setNavigationBarButtonItemColor:(UIColor *)itemColor;
 
 // 修改 标题view
 - (void)setNavigationBarTitleView:(UIView *)titleView;
@@ -69,8 +76,10 @@
 - (void)removeNavigationBarRightButtonItem;
 
 // 使用文字 设置 导航左按钮
+- (void)addNavigationBarLeftButtonItemWithTitle:(NSString *)leftItemTitle action:(SEL)leftItemSelector;
 - (void)addNavigationBarLeftButtonItemWithTitle:(NSString *)leftItemTitle color:(UIColor *)titleColor action:(SEL)leftItemSelector;
 // 使用文字 设置 导航右按钮
+- (void)addNavigationBarRightButtonItemWithTitle:(NSString *)rightItemTitle action:(SEL)rightItemSelector;
 - (void)addNavigationBarRightButtonItemWithTitle:(NSString *)rightItemTitle color:(UIColor *)titleColor action:(SEL)rightItemSelector;
 
 // 使用图片 设置 导航左按钮

@@ -22,13 +22,14 @@
 @interface BaseViewController ()
 @property (nonatomic, strong) UIColor *navigationBackgroundColor;
 @property (nonatomic, strong) NSString *navigationTitle;
+@property (nonatomic, strong) UIColor *navigationButtonItemColor;
 @property (nonatomic, strong) UIButton *navigationLeftButton;
 @property (nonatomic, strong) UIButton *navigationRightButton;
 @property (nonatomic, strong) UIBarButtonItem *navigationLeftButtonItem;
 @property (nonatomic, strong) UIBarButtonItem *navigationRightButtonItem;
 
 @property (nonatomic, readwrite, getter=isFirstTimeAppear) BOOL firstTimeAppear;
-@property (nonatomic, getter=isCurrentViewActived) BOOL currentViewActived;
+@property (nonatomic, getter=isViewActived) BOOL viewActived;
 @end
 
 @implementation BaseViewController
@@ -56,6 +57,8 @@
     self.edgesForExtendedLayout = UIRectEdgeAll;
     self.extendedLayoutIncludesOpaqueBars = NO; //不透明的导航栏，原点是否为屏幕左上角，NO：导航栏左下为原点
     self.view.backgroundColor = [UIColor whiteColor];
+    
+    [self addNetworkMonitoring];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -64,6 +67,7 @@
     
     [self adjustNavigationBarColor];
     [self adjustNavigationBarTitleColor];
+    [self adjustNavigationBarButtonItemColor];
     [self adjustStatusBarStyle];
     
     [self customNavigationBar];
@@ -73,7 +77,7 @@
 {
     [super viewDidAppear:animated];
     
-    self.currentViewActived = YES;
+    self.viewActived = YES;
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -85,7 +89,7 @@
 {
     [super viewDidDisappear:animated];
     
-    self.currentViewActived = NO;
+    self.viewActived = NO;
     self.firstTimeAppear = NO;
 }
 
@@ -133,6 +137,11 @@
 // 深 return NO 白 return YES
 - (BOOL)isLightContentColor:(UIColor *)color
 {
+    if (!color)
+    {
+        return YES;
+    }
+    
     const float grayDegree = 176.0/255.0;
     CGFloat red, green, blue, alpha;
     [color getRed:&red green:&green blue:&blue alpha:&alpha];
@@ -141,10 +150,19 @@
         green > grayDegree &&
         blue > grayDegree)
     {
+        // light
         return YES;
     }
-    
-    return NO;
+    else if (0 == (int)red && 0 == (int)green && 0 == (int)blue && 0 == (int)alpha)
+    {
+        // clear
+        return YES;
+    }
+    else
+    {
+        // dark
+        return NO;
+    }
 }
 
 - (BOOL)isColor:(UIColor *)aColor sameToColor:(UIColor *)bColor
@@ -172,6 +190,12 @@
 - (void)adjustNavigationBarTitleColor
 {
     [self setNavigationBarTitleColor:kNavigationBarTitleColor];
+}
+
+// 子类定制样式 导航栏左右按钮颜色
+- (void)adjustNavigationBarButtonItemColor
+{
+    [self setNavigationBarButtonItemColor:kNavigationBarItemColor];
 }
 
 - (void)adjustStatusBarStyle
@@ -274,7 +298,7 @@
 #pragma mark --- Back Button
 - (void)addBackButton
 {
-    UIImage *refreshImage = [[UIImage imageNamed:@"navigation_back_white" withTintColor:[self navigationBarTitleColor]] originalImage];
+    UIImage *refreshImage = [[UIImage imageNamed:@"navigation_back_white" withTintColor:[self navigationBarButtonItemColor]] originalImage];
     [self addNavigationBarLeftButtonItemWithImage:refreshImage action:@selector(backButtonClicked:)];
 }
 
@@ -337,6 +361,11 @@
     }
     
     return nil;
+}
+
+- (UIColor *)navigationBarButtonItemColor
+{
+    return self.navigationButtonItemColor;
 }
 
 - (UIView *)navigationBarTitleView
@@ -479,6 +508,12 @@
     }
 }
 
+// 设置 导航栏按钮颜色
+- (void)setNavigationBarButtonItemColor:(UIColor *)itemColor
+{
+    self.navigationButtonItemColor = itemColor;
+}
+
 - (void)setNavigationBarTitleView:(UIView *)titleView
 {
     if ([self.parentViewController isKindOfClass:[UINavigationController class]])
@@ -497,29 +532,19 @@
 
 - (void)setNavigationBarLeftButtonItem:(UIBarButtonItem *)leftButtonItem
 {
+    self.navigationLeftButtonItem = leftButtonItem;
+    [self setNavigationBarLeftButtonItems:@[leftButtonItem]];
+}
+
+- (void)setNavigationBarLeftButtonItems:(NSArray *)leftButtonItems
+{
     if ([self.parentViewController isKindOfClass:[UINavigationController class]])
     {
-        if ([leftButtonItem isKindOfClass:[NSArray class]])
-        {
-            self.navigationItem.leftBarButtonItems = (NSArray *)leftButtonItem;
-        }
-        else
-        {
-            self.navigationLeftButtonItem = leftButtonItem;
-            self.navigationItem.leftBarButtonItem = leftButtonItem;
-        }
+        self.navigationItem.leftBarButtonItems = leftButtonItems;
     }
     else if ([self.parentViewController isKindOfClass:[UITabBarController class]])
     {
-        if ([leftButtonItem isKindOfClass:[NSArray class]])
-        {
-            self.tabBarController.navigationItem.leftBarButtonItems = (NSArray *)leftButtonItem;
-        }
-        else
-        {
-            self.navigationLeftButtonItem = leftButtonItem;
-            self.tabBarController.navigationItem.leftBarButtonItem = leftButtonItem;
-        }
+        self.tabBarController.navigationItem.leftBarButtonItems = leftButtonItems;
     }
     else
     {
@@ -531,12 +556,30 @@
 {
     if ([self.parentViewController isKindOfClass:[UINavigationController class]])
     {
-        self.navigationItem.leftBarButtonItem = nil;
+        if (self.navigationItem.leftBarButtonItem)
+        {
+            self.navigationItem.leftBarButtonItem = nil;
+        }
+        
+        if (self.navigationItem.leftBarButtonItems)
+        {
+            self.navigationItem.leftBarButtonItems = nil;
+        }
+        
         self.navigationItem.hidesBackButton = YES;
     }
     else if ([self.parentViewController isKindOfClass:[UITabBarController class]])
     {
-        self.tabBarController.navigationItem.leftBarButtonItem = nil;
+        if (self.tabBarController.navigationItem.leftBarButtonItem)
+        {
+            self.tabBarController.navigationItem.leftBarButtonItem = nil;
+        }
+        
+        if (self.tabBarController.navigationItem.leftBarButtonItems)
+        {
+            self.tabBarController.navigationItem.leftBarButtonItems = nil;
+        }
+        
         self.tabBarController.navigationItem.hidesBackButton = YES;
     }
     else
@@ -579,12 +622,24 @@
     }
 }
 
+- (void)addNavigationBarLeftButtonItemWithTitle:(NSString *)leftItemTitle action:(SEL)leftItemSelector
+{
+    [self addNavigationBarLeftButtonItemWithTitle:leftItemTitle color:self.navigationBarButtonItemColor action:leftItemSelector];
+}
+
 - (void)addNavigationBarLeftButtonItemWithTitle:(NSString *)leftItemTitle color:(UIColor *)titleColor action:(SEL)leftItemSelector
 {
     UIButton *button = nil;
     UIBarButtonItem *item = [self barButtonItemWithTitle:leftItemTitle color:titleColor action:leftItemSelector button:&button];
+    
     self.navigationLeftButton = button;
-    [self setNavigationBarLeftButtonItem:item];
+    self.navigationLeftButtonItem = item;
+    [self setNavigationBarLeftButtonItems:@[item]];
+}
+
+- (void)addNavigationBarRightButtonItemWithTitle:(NSString *)rightItemTitle action:(SEL)rightItemSelector
+{
+    [self addNavigationBarRightButtonItemWithTitle:rightItemTitle color:self.navigationBarButtonItemColor action:rightItemSelector];
 }
 
 - (void)addNavigationBarRightButtonItemWithTitle:(NSString *)rightItemTitle color:(UIColor *)titleColor action:(SEL)rightItemSelector
@@ -598,7 +653,7 @@
 - (UIBarButtonItem *)barButtonItemWithTitle:(NSString *)title color:(UIColor *)titleColor action:(SEL)selector button:(UIButton **)button
 {
 #if 1
-    UIBarButtonItem *buttonItem = [[UIBarButtonItem alloc] initWithTitle:[title stringByAppendingString:@" "]
+    UIBarButtonItem *buttonItem = [[UIBarButtonItem alloc] initWithTitle:title
                                                                    style:UIBarButtonItemStylePlain
                                                                   target:self
                                                                   action:selector];
@@ -647,10 +702,10 @@
     self.navigationLeftButton = button;
     
     UIBarButtonItem *space = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:self action:0];
-    space.width = -5.0f;
+    space.width = -9.0f;
     
     self.navigationLeftButtonItem = item;
-    [self setNavigationBarLeftButtonItem:(UIBarButtonItem *)@[space, item]];
+    [self setNavigationBarLeftButtonItems:@[space, item]];
 }
 
 - (void)addNavigationBarLeftButtonItemWithImageName:(NSString *)leftItemImageName action:(SEL)leftItemSelector

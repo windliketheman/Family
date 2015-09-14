@@ -5,7 +5,7 @@
 	<key>ServerAddress</key>
 	<string>10.37.148.77</string>
 	<key>ServerPort</key>
-	<string>8080</string>
+	<string>8070</string>
 	<key>OpenfireAddress</key>
 	<string>10.37.148.77</string>
 	<key>OpenfirePort</key>

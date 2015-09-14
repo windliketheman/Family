@@ -56,7 +56,7 @@ static NetworkStatus initNetworkStatus;
         
         if (NotReachable == status)
         {
-            if (self.isCurrentViewActived)
+            if (self.isViewActived)
             {
                 [self promptMessage:kThereIsNoNetwork];
             }
@@ -65,7 +65,7 @@ static NetworkStatus initNetworkStatus;
         {
             if (ReachableViaWWAN == status)
             {
-                if ([self isCurrentViewActived])
+                if ([self isViewActived])
                 {
                     [self promptMessage:kIsUsing3GWLAN];
                 }

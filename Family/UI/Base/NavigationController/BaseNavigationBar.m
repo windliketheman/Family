@@ -3,7 +3,7 @@
 //  Lepai
 //
 //  Created by junbo jia on 14/11/9.
-//  Copyright (c) 2014年 jia. All rights reserved.
+//  Copyright (c) 2014年 Letv. All rights reserved.
 //
 
 #import "BaseNavigationBar.h"
@@ -33,11 +33,17 @@ static CGFloat const kSpaceToCoverStatusBars = 20.0f;
 
 - (void)setBarTintColor:(UIColor *)barTintColor
 {
-    if (barTintColor)
+    CGFloat red, green, blue, alpha;
+    [barTintColor getRed:&red green:&green blue:&blue alpha:&alpha];
+    
+    if (!barTintColor || (0 == (int)red && 0 == (int)green && 0 == (int)blue && 0 == (int)alpha))
     {
-        CGFloat red, green, blue, alpha;
-        [barTintColor getRed:&red green:&green blue:&blue alpha:&alpha];
+        [super setBarTintColor:nil];
         
+        self.colorLayer.opacity = 0.0f;
+    }
+    else
+    {
         UIColor *calibratedColor = [UIColor colorWithRed:red green:green blue:blue alpha:0.66];
         [super setBarTintColor:calibratedColor];
         
@@ -61,12 +67,6 @@ static CGFloat const kSpaceToCoverStatusBars = 20.0f;
         blue = MAX(MIN(1.0, blue), 0);
         
         self.colorLayer.backgroundColor = [UIColor colorWithRed:red green:green blue:blue alpha:alpha].CGColor;
-    }
-    else
-    {
-        [super setBarTintColor:nil];
-        
-        self.colorLayer.opacity = 0.0f;
     }
 }
 
