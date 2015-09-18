@@ -41,7 +41,6 @@
     
     // 波纹动画
     // [self splashEffectComplection:^{
-        
         // 根视图
         [self showRootVC];
     //}];
