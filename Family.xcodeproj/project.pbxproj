@@ -336,7 +336,7 @@
 		E7B5F3491B802BFB00359AE0 /* UILabel+Extension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UILabel+Extension.m"; sourceTree = "<group>"; };
 		E7B5F34A1B802BFB00359AE0 /* UIViewExt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIViewExt.h; sourceTree = "<group>"; };
 		E7B5F34B1B802BFB00359AE0 /* UIViewExt.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIViewExt.m; sourceTree = "<group>"; };
-		E7BBF15C1B7C764C004DCC3F /* QinQingBao.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = QinQingBao.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		E7BBF15C1B7C764C004DCC3F /* CommonModules.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CommonModules.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E7BBF1601B7C764C004DCC3F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E7BBF1611B7C764C004DCC3F /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		E7BBF16C1B7C764C004DCC3F /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
@@ -894,7 +894,7 @@
 		E7BBF15D1B7C764C004DCC3F /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				E7BBF15C1B7C764C004DCC3F /* QinQingBao.app */,
+				E7BBF15C1B7C764C004DCC3F /* CommonModules.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -2143,9 +2143,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		E7BBF15B1B7C764C004DCC3F /* QinQingBao */ = {
+		E7BBF15B1B7C764C004DCC3F /* CommonModules */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = E7BBF17F1B7C764D004DCC3F /* Build configuration list for PBXNativeTarget "QinQingBao" */;
+			buildConfigurationList = E7BBF17F1B7C764D004DCC3F /* Build configuration list for PBXNativeTarget "CommonModules" */;
 			buildPhases = (
 				56577ABB2C40B3E566C1B16C /* Check Pods Manifest.lock */,
 				E7BBF1581B7C764C004DCC3F /* Sources */,
@@ -2157,9 +2157,9 @@
 			);
 			dependencies = (
 			);
-			name = QinQingBao;
+			name = CommonModules;
 			productName = Family;
-			productReference = E7BBF15C1B7C764C004DCC3F /* QinQingBao.app */;
+			productReference = E7BBF15C1B7C764C004DCC3F /* CommonModules.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -2190,7 +2190,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				E7BBF15B1B7C764C004DCC3F /* QinQingBao */,
+				E7BBF15B1B7C764C004DCC3F /* CommonModules */,
 			);
 		};
 /* End PBXProject section */
@@ -2611,6 +2611,7 @@
 					"$(PROJECT_DIR)/Family/Network/DownloadCore",
 				);
 				ONLY_ACTIVE_ARCH = NO;
+				PRODUCT_BUNDLE_IDENTIFIER = "cn.ennew.common-modules";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = 1;
 				VALID_ARCHS = "armv7 arm64";
@@ -2639,6 +2640,7 @@
 					"$(PROJECT_DIR)/Family/Libraries/Audio/VoiceConvert/lib",
 					"$(PROJECT_DIR)/Family/Network/DownloadCore",
 				);
+				PRODUCT_BUNDLE_IDENTIFIER = "cn.ennew.common-modules";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = 1;
 				VALID_ARCHS = "armv7 arm64";
@@ -2657,7 +2659,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		E7BBF17F1B7C764D004DCC3F /* Build configuration list for PBXNativeTarget "QinQingBao" */ = {
+		E7BBF17F1B7C764D004DCC3F /* Build configuration list for PBXNativeTarget "CommonModules" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				E7BBF1801B7C764D004DCC3F /* Debug */,

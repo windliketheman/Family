@@ -4,7 +4,7 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
-		<key>QinQingBao.xcscheme</key>
+		<key>CommonModulesDemo.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
 			<integer>0</integer>
@@ -13,11 +13,6 @@
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
 		<key>E7BBF15B1B7C764C004DCC3F</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>E7BBF1741B7C764D004DCC3F</key>
 		<dict>
 			<key>primary</key>
 			<true/>
