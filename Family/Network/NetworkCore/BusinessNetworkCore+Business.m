@@ -19,10 +19,6 @@ NSString *const BusinessSecurityRequestHeaderField = @"x-ennew-sec";
     {
         return @[BusinessCommonRequestHeaderField];
     }
-    else if ([urlString rangeOfString:GetImage].location != NSNotFound)
-    {
-        return @[BusinessCommonRequestHeaderField, BusinessSecurityRequestHeaderField];
-    }
     else
     {
         return nil;

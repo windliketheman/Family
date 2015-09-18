@@ -7,6 +7,7 @@
 //
 
 #import "MembersViewController.h"
+#import "BaseViewController.h"
 
 @implementation MembersViewController
 

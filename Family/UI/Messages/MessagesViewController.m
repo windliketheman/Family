@@ -7,6 +7,7 @@
 //
 
 #import "MessagesViewController.h"
+#import "BaseViewController.h"
 
 @implementation MessagesViewController
 

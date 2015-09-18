@@ -1,25 +1,26 @@
 //
-//  BaseViewController+Picker.m
+//  UIViewController+Picker.m
 //  Family
 //
-//  Created by jia on 15/8/24.
+//  Created by jia on 15/9/17.
 //  Copyright (c) 2015年 jia. All rights reserved.
 //
 
-#import "BaseViewController+Picker.h"
-#import "RSKImageCropViewController.h"
+#import "UIViewController+Picker.h"
+// #import "RSKImageCropViewController.h"
 #import "AssetPickerViewController.h"
 #import <MobileCoreServices/MobileCoreServices.h>
 
-@implementation BaseViewController (Picker)
+@implementation UIViewController (Picker)
 
-#pragma mark - Cropper Image
+#if 0
 - (UIViewController *)imageCropperWithImage:(UIImage *)image
 {
     RSKImageCropViewController *imageCropVC = [[RSKImageCropViewController alloc] initWithImage:image cropMode:RSKImageCropModeCircle];
     imageCropVC.delegate = (id<RSKImageCropViewControllerDelegate>)self;
     return imageCropVC;
 }
+#endif
 
 - (UIViewController *)assetPicker
 {

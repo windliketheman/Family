@@ -1,9 +1,9 @@
 //
 //  BaseTableViewController.h
-//  ennew
+//  MyBox
 //
-//  Created by mijibao on 15/5/22.
-//  Copyright (c) 2015年 ennew. All rights reserved.
+//  Created by junbo jia on 14-8-4.
+//  Copyright (c) 2014年 OrangeTeam. All rights reserved.
 //
 
 #import "BaseViewController.h"
@@ -13,8 +13,14 @@
 UITableViewDelegate>
 
 @property (nonatomic, strong) UITableView *tableView;
+@property (nonatomic, retain) NSMutableArray *tableViewDataSource;
 
-// subclass rewrite, if not, default return UITableViewStylePlain
-- (UITableViewStyle)tableViewStyle;
+- (id)initWithStyle:(UITableViewStyle)style;
+
+- (void)reloadTableView;
+
+- (void)deleteTableViewRowsAtIndexPaths:(NSArray *)rows;
+
+- (void)hideTableViewExtraLines:(UITableView *)tableView;
 
 @end

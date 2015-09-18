@@ -9,8 +9,6 @@
 #import "BaseNavigationController.h"
 #import "UINavigationController+Custom.h"
 #import "BaseNavigationBar.h"
-#import "BaseViewController.h"
-#import "UIImage+Extension.h"
 
 #define kBottomLineGrayValue 176.0/255.0
 
@@ -77,26 +75,12 @@
 
 - (BOOL)shouldAutorotate
 {
-    if ([self.topViewController isKindOfClass:[BaseViewController class]])
-    {
-        return [self.topViewController shouldAutorotate];
-    }
-    else
-    {
-        return NO;
-    }
+    return [self.topViewController shouldAutorotate];
 }
 
 - (NSUInteger)supportedInterfaceOrientations
 {
-    if ([self.topViewController isKindOfClass:[BaseViewController class]])
-    {
-        return [self.topViewController supportedInterfaceOrientations];
-    }
-    else
-    {
-        return UIInterfaceOrientationMaskPortrait;
-    }
+    return [self.topViewController supportedInterfaceOrientations];
 }
 
 @end

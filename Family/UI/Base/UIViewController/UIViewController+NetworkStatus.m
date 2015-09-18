@@ -1,12 +1,14 @@
 //
-//  BaseViewController+NetworkStatus.m
-//  ennew
+//  UIViewController+NetworkStatus.m
+//  Family
 //
-//  Created by jia on 15/8/7.
-//  Copyright (c) 2015年 ennew. All rights reserved.
+//  Created by jia on 15/9/17.
+//  Copyright (c) 2015年 jia. All rights reserved.
 //
 
-#import "BaseViewController+NetworkStatus.h"
+#import "UIViewController+NetworkStatus.h"
+#import "UIViewController+Base.h"
+#import "UIViewController+Loading_Prompt.h"
 
 #define kIsUsing3GWLAN      @"正在使用3G网络"
 #define kThereIsNoNetwork   @"网络不可用"
@@ -14,7 +16,7 @@
 
 static NetworkStatus initNetworkStatus;
 
-@implementation BaseViewController (NetworkStatus)
+@implementation UIViewController (NetworkStatus)
 
 // 添加网络监控
 - (void)addNetworkMonitoring
@@ -56,7 +58,7 @@ static NetworkStatus initNetworkStatus;
         
         if (NotReachable == status)
         {
-            if (self.isViewActived)
+            if (self.isViewActive)
             {
                 [self promptMessage:kThereIsNoNetwork];
             }
@@ -65,7 +67,7 @@ static NetworkStatus initNetworkStatus;
         {
             if (ReachableViaWWAN == status)
             {
-                if ([self isViewActived])
+                if (self.isViewActive)
                 {
                     [self promptMessage:kIsUsing3GWLAN];
                 }
@@ -79,3 +81,4 @@ static NetworkStatus initNetworkStatus;
 }
 
 @end
+

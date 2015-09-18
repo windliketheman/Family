@@ -40,11 +40,11 @@
     [self initRootVC];
     
     // 波纹动画
-    [self splashEffectComplection:^{
+    // [self splashEffectComplection:^{
         
         // 根视图
         [self showRootVC];
-    }];
+    //}];
     
     [self asyncTodo];
     
@@ -91,7 +91,8 @@
 
 - (NSUInteger)application:(UIApplication *)application supportedInterfaceOrientationsForWindow:(UIWindow *)window
 {
-    return UIInterfaceOrientationMaskPortrait;
+    // 如果vc不支持多个方向，但此处设置了多个方向，vc不能旋转，但状态栏依然旋转
+    return UIInterfaceOrientationMaskAllButUpsideDown;
 }
 
 #pragma mark --- Push

@@ -7,7 +7,6 @@
 //
 
 #import "WebViewController.h"
-#import "BaseViewController+NetworkStatus.h"
 
 @implementation WebViewController
 

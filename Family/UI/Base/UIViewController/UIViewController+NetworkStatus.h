@@ -1,12 +1,12 @@
 //
-//  BaseViewController+NetworkStatus.h
-//  ennew
+//  UIViewController+NetworkStatus.h
+//  Family
 //
-//  Created by jia on 15/8/7.
-//  Copyright (c) 2015年 ennew. All rights reserved.
+//  Created by jia on 15/9/17.
+//  Copyright (c) 2015年 jia. All rights reserved.
 //
 
-#import "BaseViewController.h"
+#import <UIKit/UIKit.h>
 #import "AppNetworkMonitoring.h"
 #import "NetworkRequestPromptDefine.h"
 
@@ -16,7 +16,7 @@
 
 @end
 
-@interface BaseViewController (NetworkStatus) <NetworkMonitoringProtocol>
+@interface UIViewController (NetworkStatus) <NetworkMonitoringProtocol>
 
 /* 添加网络监控
  网络变化后会回调NetworkMonitoringProtocol代理中的方法
