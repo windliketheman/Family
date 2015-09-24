@@ -7,7 +7,7 @@
 //
 
 #import "MembersViewController.h"
-#import "BaseViewController.h"
+#import "HomelandTableViewCell.h"
 
 @implementation MembersViewController
 

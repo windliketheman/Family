@@ -321,7 +321,7 @@ CFAbsoluteTime startTime;
 #define AppFullVersion            ([[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleVersion"])
 #define AppName                   ([[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleDisplayName"])
 
-#define kSystemVersion            ([[[UIDevice currentDevice] systemVersion] floatValue])
+#define SystemVersion            ([[[UIDevice currentDevice] systemVersion] floatValue])
 
 #if TARGET_OS_IPHONE
 /** iPhone Device */

@@ -19,4 +19,14 @@
 - (BOOL)isCanSearchMeByPhoneNumberOrName;   //是否可以通过手机号、姓名搜索到我
 - (BOOL)isSendMessageByReturnKey;   //回车键发送消息
 
+// psw
+- (BOOL)passwordSwitch;
+- (NSString *)password;
+- (BOOL)touchIDSwitch;
+- (NSString *)findPasswordQuestion;
+- (NSString *)findPasswordAnswer;
+- (void)setPasswordSwitch:(BOOL)on;
+- (void)setPassword:(NSString *)psw;
+- (void)setTouchIDSwitch:(BOOL)on;
+- (void)setFindPasswordQuestion:(NSString *)q answer:(NSString *)a;
 @end

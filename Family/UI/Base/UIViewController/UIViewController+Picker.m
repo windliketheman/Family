@@ -8,7 +8,7 @@
 
 #import "UIViewController+Picker.h"
 // #import "RSKImageCropViewController.h"
-#import "AssetPickerViewController.h"
+
 #import <MobileCoreServices/MobileCoreServices.h>
 
 @implementation UIViewController (Picker)
@@ -22,7 +22,7 @@
 }
 #endif
 
-- (UIViewController *)assetPicker
+- (AssetPickerViewController *)assetPicker
 {
     AssetPickerViewController *picker = [[AssetPickerViewController alloc] init];
     picker.maximumNumberOfSelection = 100000;
@@ -46,6 +46,29 @@
     }];
     
     return picker;
+}
+
+- (void)dispatchAssetsPicker:(void (^)(CTAssetsPickerController *picker))pickerCallback
+{
+    [PHPhotoLibrary requestAuthorization:^(PHAuthorizationStatus status) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            
+            // init picker
+            CTAssetsPickerController *picker = [[CTAssetsPickerController alloc] init];
+            
+            // set delegate
+            picker.delegate = (id<CTAssetsPickerControllerDelegate>)self;
+            picker.showsEmptyAlbums = NO;
+            
+            // to present picker as a form sheet in iPad
+            if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
+                picker.modalPresentationStyle = UIModalPresentationFormSheet;
+            
+            if (pickerCallback) {
+                pickerCallback(picker);
+            }
+        });
+    }];
 }
 
 - (UINavigationController *)photoCameraPicker

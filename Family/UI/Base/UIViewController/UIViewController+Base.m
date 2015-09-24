@@ -38,21 +38,25 @@ static char _viewActive;
     return [Get_Associated_Object(&_viewActive) boolValue];
 }
 
+static char _navigationBarTranslucent;
+- (void)setNavigationBarTranslucent:(BOOL)navigationBarTranslucent
+{
+    Set_Associated_Object(&_navigationBarTranslucent, @(navigationBarTranslucent));
+    
+    // [self.navigationController setNavigationBarTranslucent:navigationBarTranslucent];
+}
+
+- (BOOL)isNavigationBarTranslucent
+{
+    return [Get_Associated_Object(&_navigationBarTranslucent) boolValue];
+}
+
 static char _navigationBarColor;
 - (void)setNavigationBarColor:(UIColor *)navigationBarColor
 {
     Set_Associated_Object(&_navigationBarColor, navigationBarColor);
     
-    if ([self.navigationController isMemberOfClass:NSClassFromString(@"BaseNavigationController")])
-    {
-        [self.navigationController performSelector:@selector(setNavigationBarColor:) withObject:self.navigationBarColor];
-    }
-    else
-    {
-        // TODO: kUsingTranslucentNavigationBar
-        self.navigationController.navigationBar.translucent = kUsingTranslucentNavigationBar;
-        [self.navigationController setNavigationBarColor:self.navigationBarColor];
-    }
+    [self.navigationController setNavigationBarColor:navigationBarColor];
 }
 
 - (UIColor *)navigationBarColor
@@ -373,6 +377,7 @@ static char _navigationBarRightButton;
 // 对于scrollView类型，frame和self.view.bounds保持一致
 - (CGRect)scrollViewSubviewRect
 {
+    CGRect rect = self.view.bounds;
     return self.view.bounds;
     
 #if 0
@@ -420,8 +425,9 @@ static char _navigationBarRightButton;
     {
         float navigationBarHeight = CGRectGetHeight(self.navigationController.navigationBar.bounds);
         float statusBarHeight     = CGRectGetHeight([[UIApplication sharedApplication] statusBarFrame]);
-        BOOL translucent = self.navigationController.navigationBar.translucent;
-        if (translucent)
+        
+        if (self.navigationController.navigationBar.translucent || // 半透明的导航栏，原点是在屏幕坐上
+            self.extendedLayoutIncludesOpaqueBars) // extendedLayoutIncludesOpaqueBars=YES, 不透明的导航栏原点也为屏幕左上
         {
             // 透明的导航栏，view原点在屏幕左上角
             nonScrollViewRect.origin.y = statusBarHeight + navigationBarHeight;

@@ -28,4 +28,7 @@
 - (void)pushVC:(UIViewController *)vc withAnimation:(BOOL)animation;
 - (void)pop;
 
+#pragma mark - Tool Methods
+
+- (void)adjustStatusBarStyleToColor:(UIColor *)barColor animated:(BOOL)animated;
 @end

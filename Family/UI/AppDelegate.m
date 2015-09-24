@@ -15,12 +15,14 @@
 #import "MembersViewController.h"
 #import "MessagesViewController.h"
 #import "MineViewController.h"
+#import "SettingViewController.h"
 #import "PushInfoHandler.h"
 #import <BaiduMapAPI/BMapKit.h>
 #import "CommonData.h"
 #import "UpdateChecker.h"
 #import "BusinessNetworkCore.h"
 #import "ServerConfig.h"
+#import "SecurityStrategy.h"
 
 #define kSkipSplashEffect 0
 
@@ -43,6 +45,11 @@
     // [self splashEffectComplection:^{
         // 根视图
         [self showRootVC];
+    
+    // 安全策略打开 验证身份
+    [SecurityStrategy run];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(authenticationSuccess) name:kAuthenticationSuccessNotification object:nil];
     //}];
     
     [self asyncTodo];
@@ -157,9 +164,9 @@
 {
     UIWindow *window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     window.backgroundColor = [UIColor whiteColor];
-    self.window = window;
+    [window makeKeyAndVisible];
     
-    [self.window makeKeyAndVisible];
+    self.window = window;
 }
 
 - (void)initRootVC
@@ -193,6 +200,11 @@
         // 直接进入
         self.rootViewController = [self createRootViewController];
     }
+}
+
+- (void)authenticationSuccess
+{
+    //
 }
 
 - (void)splashEffectComplection:(dispatch_block_t)block
@@ -283,7 +295,7 @@
     tabVC.contentClasses = @[[HomelandViewController class],
                            [MembersViewController class],
                            [MessagesViewController class],
-                           [MineViewController class]];
+                           [SettingViewController class]];
     tabVC.navigationControllerConstructor = ncc;
     [tabVC loadChildViewControllers];
     

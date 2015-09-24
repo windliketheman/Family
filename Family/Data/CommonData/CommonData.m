@@ -18,9 +18,18 @@
     static CommonData *__shareInstance = nil;
     static dispatch_once_t dispatchToken;
     dispatch_once(&dispatchToken, ^{
-        __shareInstance = [[[self class] alloc] init];
+        __shareInstance = [[super allocWithZone:nil] init];
     });
     return __shareInstance;
+}
+
+- (instancetype)init
+{
+    if (self = [super init])
+    {
+        _appSetting = [[AppSetting alloc] init];
+    }
+    return self;
 }
 
 + (instancetype)allocWithZone:(struct _NSZone *)zone

@@ -88,6 +88,8 @@ typedef NS_ENUM(NSUInteger, BarButtonItemType)
 
 - (BOOL)isColor:(UIColor *)aColor sameToColor:(UIColor *)bColor;
 
+- (BOOL)isLightContentColor:(UIColor *)color;
+
 - (void)delaySeconds:(float)seconds perform:(dispatch_block_t)block;
 
 - (NSString *)systemDocumentFolder;

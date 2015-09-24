@@ -7,6 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "AssetPickerViewController.h"
+#import "CTAssetsPickerController.h"
+#import "CTAssetCheckmark.h"
 
 @interface UIViewController (Picker)
 
@@ -14,7 +17,8 @@
 - (UIViewController *)imageCropperWithImage:(UIImage *)image;
 #endif
 
-- (UINavigationController *)assetPicker;
+- (AssetPickerViewController *)assetPicker;
+- (void)dispatchAssetsPicker:(void (^)(CTAssetsPickerController *picker))pickerCallback;
 - (UINavigationController *)photoCameraPicker;
 - (UINavigationController *)videoCameraPicker;
 

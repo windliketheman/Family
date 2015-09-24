@@ -13,7 +13,7 @@
 
 @property (nonatomic, strong) AppSetting *appSetting;
 
-+ (instancetype)instance;
++ (CommonData *)instance;
 
 + (void)setMainConfigFile:(NSString *)configFile;
 

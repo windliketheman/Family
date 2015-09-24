@@ -50,4 +50,61 @@
     return self.appSetting.isSendMessageByReturnKey;
 }
 
+// psw
++ (BOOL)passwordSwitch
+{
+    return [self.instance.appSetting passwordSwitch];
+}
+
++ (NSString *)password
+{
+    return [self.instance.appSetting password];
+}
+
++ (BOOL)touchIDSwitch
+{
+    return [self.instance.appSetting touchIDSwitch];
+}
+
++ (NSString *)findPasswordQuestion
+{
+    return [self.instance.appSetting findPasswordQuestion];
+}
+
++ (NSString *)findPasswordAnswer
+{
+    return [self.instance.appSetting findPasswordAnswer];
+}
+
++ (BOOL)findPasswordQuestionEnable
+{
+    NSString *question = [CommonData findPasswordQuestion] ? [CommonData findPasswordQuestion] : @"";
+    NSString *answer = [CommonData findPasswordAnswer] ? [CommonData findPasswordAnswer] : @"";
+    BOOL enable = YES;
+    if ([question isEqualToString:@""] && [answer isEqualToString:@""])
+    {
+        enable = NO;
+    }
+    return enable;
+}
+
++ (void)setPasswordSwitch:(BOOL)on
+{
+    [self.instance.appSetting setPasswordSwitch:on];
+}
+
++ (void)setPassword:(NSString *)psw
+{
+    [self.instance.appSetting setPassword:psw];
+}
+
++ (void)setTouchIDSwitch:(BOOL)on
+{
+    [self.instance.appSetting setTouchIDSwitch:on];
+}
+
++ (void)setFindPasswordQuestion:(NSString *)q answer:(NSString *)a
+{
+    [self.instance.appSetting setFindPasswordQuestion:q answer:a];
+}
 @end

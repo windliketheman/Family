@@ -23,4 +23,11 @@
 
 #define kSendMessageByEnter            @"isSendMessageByEnter"
 
+
+#define kSettingPasswordSwitchKey       @"SettingPasswordSwitch"
+#define kSettingPasswordKey             @"SettingPassword"
+#define kSettingPasswordTouchIDOpenKey  @"SettingPasswordTouchIDOpen"
+#define kSettingFindPasswordQuestionKey @"SettingFindPasswordQuestion"
+#define kSettingFindPasswordAnswerKey   @"SettingFindPasswordAnswer"
+
 #endif

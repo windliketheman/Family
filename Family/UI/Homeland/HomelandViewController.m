@@ -11,7 +11,7 @@
 #import "UINavigationController+Custom.h"
 #import "UIImageView+WebCache.h"
 #import "UIImage+Extension.h"
-
+#import "HomelandTableViewCell.h"
 #import "RequestCore.h"
 
 #if 0
@@ -34,6 +34,8 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    [self.tableView setBackgroundColor:[UIColor whiteColor]];
     
 #ifdef kRemoveNavigationBarBottomLineWay1
     UINavigationBar *navigationBar = self.navigationController.navigationBar;
@@ -122,10 +124,10 @@
 {
     static NSString *cellID = @"HomelandTableViewCellID";
     UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(20, 20, 60, 40)];
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellID];
+    HomelandTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellID];
     if (!cell)
     {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellID];
+        cell = [[HomelandTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellID];
         [cell.contentView addSubview:imageView];
     }
     
@@ -171,12 +173,38 @@
     if (0 == indexPath.row)
     {
         WebViewController *web = [[WebViewController alloc] init];
-        web.fileURL = @"http://www.iqiyi.com";
+        web.fileURL = @"http://www.ifeng.com";
         [self pushVC:web];
     }
     else if (1 == indexPath.row)
     {
-        [self presentModalVC:[self assetPicker]];
+        if (SystemVersion >= 9.0)
+        {
+#if 0
+            // Navigation Bar apperance
+            UINavigationBar *navBar = [UINavigationBar appearanceWhenContainedIn:[CTAssetsPickerController class], nil];
+            navBar.tintColor = [self customNavigationBarButtonItemColor];
+            // navBar.titleTextAttributes = @{NSForegroundColorAttributeName : [self navigationBarTitleColor]};
+            
+            // bar button item appearance
+            //        UIBarButtonItem *barButtonItem = [UIBarButtonItem appearanceWhenContainedIn:[CTAssetsPickerController class], nil];
+            //        [barButtonItem setTitleTextAttributes:@{NSForegroundColorAttributeName : kThemeColor}
+            //                                     forState:UIControlStateNormal];
+            
+            // check mark
+            [CTAssetCheckmark appearance].tintColor = [self customNavigationBarButtonItemColor];
+            
+            [self adjustStatusBarStyleToColor:[UIColor whiteColor] animated:YES];
+#endif
+            [self dispatchAssetsPicker:^(CTAssetsPickerController *picker) {
+                [self presentViewController:picker animated:YES completion:nil];
+            }];
+        }
+        else
+        {
+            AssetPickerViewController *picker = [self assetPicker];
+            [self presentModalVC:picker];
+        }
     }
     else if (2  == indexPath.row)
     {
@@ -205,4 +233,5 @@
         NSLog(@"%@", [error description]);
     }];
 }
+
 @end

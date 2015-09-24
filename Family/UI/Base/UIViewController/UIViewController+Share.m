@@ -7,7 +7,7 @@
 //
 
 #import "UIViewController+Share.h"
-#import "UIViewController+Push_Present.h"
+#import "UIViewController+Loading_Prompt.h"
 
 @implementation UIViewController (Share)
 
@@ -41,7 +41,12 @@
     NSString *smsBody = [NSString stringWithFormat:@"我分享了文件给您，地址是%@", @""];
     picker.body = smsBody;
     
-    [self presentModalVC:picker];
+    [self presentViewController:picker animated:YES completion:nil];
+}
+
+- (void)messageComposeViewController:(MFMessageComposeViewController *)controller didFinishWithResult:(MessageComposeResult)result
+{
+    //
 }
 
 #pragma mark --- Send Mail
@@ -76,10 +81,7 @@
         }
     }
     
-    // @"image/jpeg", xxx.jpg; @"image/png",  xxx.png; @"text/txt", xxx.txt; @"text/doc", xxx.doc; @"file/pdf", xxx.pdf
-    //
-    
-    [self presentModalVC:emailer];
+    [self presentViewController:emailer animated:YES completion:nil];
 }
 
 - (void)mailComposeController:(MFMailComposeViewController*)controller
@@ -106,11 +108,9 @@
             break;
     }
     
-    // [self promptMsg:msg];
-    
     [self dismissViewControllerAnimated:YES completion:^
      {
-         // do something
+         [self promptMessage:msg];
      }];
 }
 
